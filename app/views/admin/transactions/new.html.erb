@@ -1,0 +1,12 @@
+<%= form_for [:admin, @transaction] do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <%= f.number_field :amount, class: "form-control", placeholder: "Amount", required: true %></br>
+    </div>
+    <br/>
+
+  </div>
+
+  <%= f.submit 'Submit', class: "btn btn-md btn-success", style: "margin: 30px 0px;" %>
+
+<% end %>

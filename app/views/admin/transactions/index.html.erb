@@ -1,0 +1,24 @@
+<h1>Payments</h1>
+<table id="transactions" class="display" data-source="<%= admin_transactions_url(format: "json") %>">
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>User Name</th>
+      <th>User Email</th>
+      <th>Amount</th>
+      <th>Status</th>
+      <th>Transaction ID</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+<script>
+  $('#transactions').dataTable
+    sPaginationType: "full_numbers"
+    bJQueryUI: true
+    bProcessing: true
+    bServerSide: true
+    sAjaxSource: $('#transactions').data('source')
+
+</script>
