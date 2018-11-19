@@ -7,6 +7,7 @@ class Order
   #relations
   has_many :transactions
   has_many :line_items
+  belongs_to :user
 
 
   #fields
