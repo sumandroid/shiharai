@@ -6,7 +6,7 @@ class TransactionLog < Log
 
 
   as_enum :transaction_status,
-  	successful: 0,
+  	success: 0,
   	failed: 1
 
 

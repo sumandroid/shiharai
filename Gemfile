@@ -31,6 +31,8 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'simple_enum',                                      '~> 2.0.0' ,      require: 'simple_enum/mongoid'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 #mongoid gem for ORM
