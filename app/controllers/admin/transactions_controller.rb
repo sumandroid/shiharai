@@ -9,6 +9,8 @@ class Admin::TransactionsController < ApplicationController
 
   def new
   	@transaction = Transaction.new
+  	@order = Order.new
+  	@line_items = LineItem.all
   end
 
 

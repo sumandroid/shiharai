@@ -5,8 +5,11 @@ class LineItem
   include Mongoid::Attributes::Dynamic
 
   #relations
-  belongs_to :order
+  belongs_to :order, optional: true
 
-  field :title, 		type: String,
+  field :title, 		type: String
   field :amount,        type: Float
+
+  #validations
+  validates_presence_of :title, :amount
 end
