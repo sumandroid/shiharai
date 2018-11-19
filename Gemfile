@@ -36,6 +36,7 @@ gem 'simple_enum',                                      '~> 2.0.0' ,      requir
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 #mongoid gem for ORM
+gem 'mongo','~>2.6.2'
 gem 'mongoid', '~> 7.0'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
