@@ -18,4 +18,7 @@ class Transaction
   #validations  
   validates_presence_of :amount, :mode
 
+  #relations
+  belongs_to :order
+
 end
