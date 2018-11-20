@@ -7,12 +7,13 @@ class TransactionLog < Log
 
   as_enum :transaction_status,
   	success: 0,
-  	failed: 1
+  	failed: 1,
+  	authorized: 2
 
 
  #relations
- belongs_to :razorpay_transaction
- belongs_to :mobikwik_transaction 	 	
+ belongs_to :razorpay_transaction, optional: true 	 
+ belongs_to :mobikwik_transaction, optional: true 	 	
 
 end
 	

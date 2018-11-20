@@ -17,6 +17,6 @@ class MobikwikTransaction < Transaction
   private
 
   def create_log
-    transaction_logs.create(transaction_status: txn_status, text_content: "Transaction #{txn_status} for amount: #{amount}. Txn_ID: payment_id")
+    transaction_logs.create(transaction_status: txn_status.to_sym, text_content: "Transaction #{txn_status} for amount: #{amount}, Txn_ID: #{txn_id}, via: Mobikwik")
   end
 end
