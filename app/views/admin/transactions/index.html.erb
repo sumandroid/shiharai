@@ -3,14 +3,26 @@
   <thead>
     <tr>
       <th>Order ID</th>
-      <th>User Name</th>
       <th>User Email</th>
+      <th>User Phone</th>
       <th>Amount</th>
       <th>Status</th>
       <th>Transaction ID</th>
     </tr>
   </thead>
   <tbody>
+  	<% @transactions.each do |transaction| %>
+  		<tr>
+  			<td>
+  				<%= transaction.order.id %>
+  				<%= transaction.email%>
+  				<%= transaction.phone %>
+  				<%= transaction.amount %>
+  				<%= transaction.txn_status %>
+  				<%= transaction.txn_id %>
+  			</td>
+  		</tr>
+  	<% end %>
   </tbody>
 </table>
 <script>
