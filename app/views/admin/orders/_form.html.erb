@@ -1,0 +1,9 @@
+<%= f.fields_for :line_items do |line_item_builder| %>
+  <%= line_item_builder.label_tag :line_items, "Select Product"%>	
+  <%= line_item_builder.select(:line_items, options_for_select(@line_items.map { |li| [li.title, li.id, { 'data-amount' => li.amount }]}), {}, {class: "form-control product_select_dropdown"} ) %>
+<% end %>
+
+<%= f.fields_for :user do |user_builder| %>
+  <%= user_builder.label_tag :user, "Select User"%>	
+  <%= user_builder.select(:user, options_for_select(@users.map { |user| [user.name, user.id, { 'data-email' => user.email, 'data-phone' => user.phone }]}) ) %>
+<% end %>

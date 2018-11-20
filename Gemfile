@@ -43,6 +43,10 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
+gem 'bootstrap_form'
+gem 'bootstrap-select-rails'
+gem 'twitter-bootstrap-rails',                                            :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+
 gem 'jquery-rails'
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 gem 'jquery-ui-rails'

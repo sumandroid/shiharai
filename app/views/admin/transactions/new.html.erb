@@ -3,9 +3,39 @@
     <div class="col-sm-12">
     </div>
     <br/>
-    <%= f.fields_for :order do |order_builder| %>
+    <%= f.fields_for :order do |order_builder| %>	
       <%= render "admin/orders/form", f: order_builder, object: @line_items %>
     <% end %>
   </div>
-  <%= f.submit 'Submit', class: "btn btn-md btn-success", style: "margin: 30px 0px;" %>
+  <button id="rzp-button1">Pay With Razorpay</button>
 <% end %>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_bFWenJ5zeKKzvu",
+    "amount": $('select.product_select_dropdown :selected').attr('data-amount')*100 , // 2000 paise = INR 20
+    "name": "Shiharai",
+    "description": $('select.product_select_dropdown :selected').html(),
+    "image": "/your_logo.png",
+    "handler": function (response){
+        alert(response.razorpay_payment_id);
+    },
+    "prefill": {
+        "name": $('select.user_select_dropdown :selected').html(),
+        "email": $('select.user_select_dropdown :selected').attr('data-email')
+    },
+    "notes": {
+        "address": "Hello World"
+    },
+    "theme": {
+        "color": "#F37254"
+    }
+};
+var rzp1 = new Razorpay(options);
+
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>

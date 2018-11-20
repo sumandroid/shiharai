@@ -8,8 +8,9 @@ class Admin::TransactionsController < ApplicationController
   end
 
   def new
-  	@transaction = Transaction.new
+  	@users = User.all #to be replaced with current_user
   	@order = Order.new
+  	@transaction = @order.transactions.build
   	@line_items = LineItem.all
   end
 
