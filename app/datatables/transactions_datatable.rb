@@ -1,5 +1,7 @@
-class PaymentsDatatable
+class TransactionsDatatable
   delegate :params, :h, :link_to, to: :@view
+
+  require 'will_paginate/array'
 
   def initialize(view)
     @view = view
@@ -20,13 +22,15 @@ private
     transactions.map do |transaction|
       order = transaction.order
       [
-        link_to(order.id, order),
-        h(email),
-        h(phone),
-        h(transaction.amount),
-        h(transaction.txnStatus),
-        h(transaction.mode),
-        h(transaction.created_at.strftime("%B %e, %Y"))
+        order.id.to_s,
+        order.order_line_items.first.title,
+        transaction.email,
+        transaction.phone,
+        transaction.amount,
+        transaction.txn_status,
+        transaction.mode,
+        transaction.txn_id,
+        transaction.created_at.strftime("%B %e, %Y")
       ]
     end
   end
@@ -36,8 +40,8 @@ private
   end
 
   def fetch_transactions
-    transactions = Transaction.include(:order, :user).order("#{sort_direction}")
-    transactions = transactions.page(page).per_page(per_page)
+    transactions = Transaction.includes(:order).desc(:created_at)
+    transactions = transactions.paginate(page: page, per_page: per_page)
     transactions
   end
 

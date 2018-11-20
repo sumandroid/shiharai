@@ -3,34 +3,31 @@
   <thead>
     <tr>
       <th>Order ID</th>
+      <th>Item</th>
       <th>User Email</th>
       <th>User Phone</th>
       <th>Amount</th>
       <th>Status</th>
+      <th>Mode</th>
       <th>Transaction ID</th>
+      <th>Created_at</th>
     </tr>
   </thead>
   <tbody>
-  	<% @transactions.each do |transaction| %>
-  		<tr>
-  			<td>
-  				<%= transaction.order.id %>
-  				<%= transaction.email%>
-  				<%= transaction.phone %>
-  				<%= transaction.amount %>
-  				<%= transaction.txn_status %>
-  				<%= transaction.txn_id %>
-  			</td>
-  		</tr>
-  	<% end %>
   </tbody>
 </table>
 <script>
-  $('#transactions').dataTable
-    sPaginationType: "full_numbers"
-    bJQueryUI: true
-    bProcessing: true
-    bServerSide: true
-    sAjaxSource: $('#transactions').data('source')
+  $(document).ready(function() {
+    $('#transactions').dataTable({
+            sAjaxSource: $('#transactions').data('source'),
+            sPaginationType: "full_numbers",
+            bProcessing: true,
+            aaSorting: [],
+            pageLength: 50
+            // createdRow: function (row, data, index) {
+            //   rowFormat(row, data);
+            // }
+        });
+} );
 
 </script>

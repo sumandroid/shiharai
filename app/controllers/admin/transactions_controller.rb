@@ -5,7 +5,7 @@ class Admin::TransactionsController < ApplicationController
   def index
     respond_to do |format|
       format.html { @transactions = Transaction.includes(:order).all }
-      format.json { render json: PaymentsDatatable.new(view_context) }
+      format.json { render json: TransactionsDatatable.new(view_context) }
     end
   end
 
