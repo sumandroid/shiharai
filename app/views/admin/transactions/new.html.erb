@@ -16,7 +16,7 @@
 <% end %>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
-  var options = {
+	options = {
       "key": "rzp_test_bFWenJ5zeKKzvu",
       "amount": $('select.product_select_dropdown :selected').attr('data-amount')*100 , // 2000 paise = INR 20
       "name": "Shiharai",
@@ -36,9 +36,31 @@
           "color": "#F37254"
       }
   };
-  var rzp1 = new Razorpay(options);
   
+  $('select.product_select_dropdown').on('change', function(){
+  options = {
+      "key": "rzp_test_bFWenJ5zeKKzvu",
+      "amount": $('select.product_select_dropdown :selected').attr('data-amount')*100 , // 2000 paise = INR 20
+      "name": "Shiharai",
+      "description": $('select.product_select_dropdown :selected').html(),
+      "handler": function (response){
+          authorise_payment(response);
+  
+      },
+      "prefill": {
+          "name": $('select.user_select_dropdown :selected').html(),
+          "email": $('select.user_select_dropdown :selected').attr('data-email')
+      },
+      "notes": {
+          "address": "Hello World"
+      },
+      "theme": {
+          "color": "#F37254"
+      }
+  };
+  });
   document.getElementById('rzp-button1').onclick = function(e){
+  	var rzp1 = new Razorpay(options);
       rzp1.open();
       e.preventDefault();
   }
@@ -55,7 +77,6 @@
                       if(result.status == 'success'){
                       	alert('Transaction Successful');
                       	var form = $('form');
-                      	debugger;
                       	form.find('input[name="payment_hash"]').val(JSON.stringify(result.payment_hash));
                       	form.find('input[name="mode"]').val(result.mode);
                       	form.submit();
