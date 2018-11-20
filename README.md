@@ -15,9 +15,9 @@ This is will guide you to startup the project
 * Go to app folder and run bundle to install the gems and dependencies.
 
 * There are no seedings in mongodb hence, run the following commands to seed some data:
-	LineItem.create(title: "LED TV", amount: 10000)
-	LineItem.create(title: "Refrigerator", amount: 6000)
-	User.create(name: "suman saurabh", email: "sumansaurabh93s@gmail.com", phone: 8700191629)
+	`LineItem.create(title: "LED TV", amount: 10000)`
+	`LineItem.create(title: "Refrigerator", amount: 6000)`
+	`User.create(name: "suman saurabh", email: "sumansaurabh93s@gmail.com", phone: 8700191629)`
 
 * Boot up your rails server and go to http://localhost:3000/admin/transactions
 
