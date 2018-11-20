@@ -6,8 +6,6 @@ class Transaction
   include SimpleEnum::Mongoid
 
   field :amount,                      type: Float
-  field :mode,                        type: String
-  field :txnStatus,                   type: String
   field :email,                       type: String
   field :mobile,                      type: String
 

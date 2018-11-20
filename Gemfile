@@ -53,6 +53,8 @@ gem 'jquery-ui-rails'
 
 gem 'will_paginate'
 
+gem 'razorpay'
+
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'

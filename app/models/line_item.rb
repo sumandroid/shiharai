@@ -4,9 +4,6 @@ class LineItem
   include SimpleEnum::Mongoid
   include Mongoid::Attributes::Dynamic
 
-  #relations
-  belongs_to :order, optional: true
-
   field :title, 		type: String
   field :amount,        type: Float
 

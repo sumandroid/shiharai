@@ -1,41 +1,68 @@
-<%= form_for [:admin, @transaction] do |f| %>
+<%= form_for @transaction, :url => {:action => :create} do |f| %>
   <div class="row">
     <div class="col-sm-12">
     </div>
     <br/>
-    <%= f.fields_for :order do |order_builder| %>	
-      <%= render "admin/orders/form", f: order_builder, object: @line_items %>
+    <%= f.fields_for :order do |order_builder| %>
+      <%= render "admin/orders/form", f: order_builder, object: @order %>
     <% end %>
+    <%= f.hidden_field :mode %>
+    <input type="hidden" name="payment_hash">
+    <input type="hidden" name="mode">
   </div>
+  <br/>
+  <br/>
   <button id="rzp-button1">Pay With Razorpay</button>
 <% end %>
-
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
-var options = {
-    "key": "rzp_test_bFWenJ5zeKKzvu",
-    "amount": $('select.product_select_dropdown :selected').attr('data-amount')*100 , // 2000 paise = INR 20
-    "name": "Shiharai",
-    "description": $('select.product_select_dropdown :selected').html(),
-    "image": "/your_logo.png",
-    "handler": function (response){
-        alert(response.razorpay_payment_id);
-    },
-    "prefill": {
-        "name": $('select.user_select_dropdown :selected').html(),
-        "email": $('select.user_select_dropdown :selected').attr('data-email')
-    },
-    "notes": {
-        "address": "Hello World"
-    },
-    "theme": {
-        "color": "#F37254"
-    }
-};
-var rzp1 = new Razorpay(options);
-
-document.getElementById('rzp-button1').onclick = function(e){
-    rzp1.open();
-    e.preventDefault();
-}
+  var options = {
+      "key": "rzp_test_bFWenJ5zeKKzvu",
+      "amount": $('select.product_select_dropdown :selected').attr('data-amount')*100 , // 2000 paise = INR 20
+      "name": "Shiharai",
+      "description": $('select.product_select_dropdown :selected').html(),
+      "handler": function (response){
+          authorise_payment(response);
+  
+      },
+      "prefill": {
+          "name": $('select.user_select_dropdown :selected').html(),
+          "email": $('select.user_select_dropdown :selected').attr('data-email')
+      },
+      "notes": {
+          "address": "Hello World"
+      },
+      "theme": {
+          "color": "#F37254"
+      }
+  };
+  var rzp1 = new Razorpay(options);
+  
+  document.getElementById('rzp-button1').onclick = function(e){
+      rzp1.open();
+      e.preventDefault();
+  }
+  
+  function authorise_payment(razorpay_response, params){
+  	var payment_id = razorpay_response.razorpay_payment_id;
+  	var url = '<%= authenticate_razorpay_payment_admin_transactions_url %>'
+  	$.ajax({
+                  url: url,
+                  data: {payment_id: payment_id, line_item_id: $('select.product_select_dropdown :selected').val()},
+                  type: 'post',
+                  dataType: 'json',
+                  success: function (result) {
+                      if(result.status == 'success'){
+                      	alert('Transaction Successful');
+                      	var form = $('form');
+                      	debugger;
+                      	form.find('input[name="payment_hash"]').val(JSON.stringify(result.payment_hash));
+                      	form.find('input[name="mode"]').val(result.mode);
+                      	form.submit();
+                      }else{
+                      	alert('Something went wrong.');
+                      }
+                  }
+              });
+  }
 </script>
